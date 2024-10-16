@@ -8,7 +8,7 @@ import {
   MenuItems,
 } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { assets } from '../../assets/assets';
+import { assets } from '../../public/assets/assets';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import React, { useState } from 'react';
 import Cart  from './Cart';
@@ -25,7 +25,7 @@ function classNames(...classes) {
 }
 
 
-export default function Example() {
+export default function Navbar() {
   
 const [cartOpen, setCartOpen] = useState(false);
   return (

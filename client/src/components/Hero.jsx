@@ -1,4 +1,4 @@
-import { assets } from '../../assets/assets';
+import { assets } from '../../public/assets/assets';
 
 /*
   This example requires some changes to your config:

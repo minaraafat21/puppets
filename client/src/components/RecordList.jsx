@@ -88,7 +88,7 @@ export default function RecordList() {
               <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
                 <img
                   alt={record.imageAlt}
-                  src={'src/assets/' + record.imageSrc}
+                  src={'public/assets/' + record.imageSrc}
                   className="h-full w-full object-cover object-center group-hover:opacity-75"
                 />
               </div>

@@ -12,6 +12,7 @@ import { assets } from '../../public/assets/assets';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import React, { useState } from 'react';
 import Cart from './Cart';
+import { useOutletContext } from 'react-router-dom';
 
 const navigation = [
   { name: 'Home', href: '/', current: true },
@@ -24,8 +25,8 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function Navbar() {
-  const [cartOpen, setCartOpen] = useState(false);
+export default function Navbar({open , setOpen}) {
+  
   return (
     <Disclosure as="nav" className="bg-gray-800">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -156,7 +157,7 @@ export default function Navbar() {
             <button
               type="button"
               className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none "
-              onClick={() => setCartOpen(true)}
+              onClick={() => setOpen(true)}
             >
               {/* cart btn */}
               <svg
@@ -175,7 +176,7 @@ export default function Navbar() {
               </svg>
             </button>
 
-            {cartOpen && <Cart open={cartOpen} setOpen={setCartOpen} />}
+            
 
             {/* Profile dropdown */}
             <Menu as="div" className="relative ml-3">

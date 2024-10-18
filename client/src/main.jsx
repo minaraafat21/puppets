@@ -12,7 +12,7 @@ import "./index.css";
 
 // ///////////////////
 import About from './pages/About.jsx'
-import Cart from './pages/Cart.jsx'
+import Cart from './components/Cart.jsx'
 import Collection from './pages/Collection.jsx'
 import Content from './pages/Content.jsx'
 import Home from './pages/Home.jsx'

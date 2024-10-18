@@ -8,6 +8,7 @@ import App from "./App";
 import Record from "./components/Record";
 import RecordList from "./components/RecordList";
 import Hero from "./components/Hero";
+import Product from "./components/Product";  
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -51,7 +52,15 @@ const router = createBrowserRouter([
 
   }
   ]
-  }
+  },
+  {
+    path: '/product/:productId',
+    element: <App />,
+    children: [
+      {
+        path: '/product/:productId',
+        element: <Product />,  
+  }]}
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

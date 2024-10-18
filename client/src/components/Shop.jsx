@@ -12,7 +12,7 @@
   }
   ```
 */
-import { products } from '../../assets/assets';
+import { products } from '../../public/assets/assets';
 
 export default function Shop() {
   return (

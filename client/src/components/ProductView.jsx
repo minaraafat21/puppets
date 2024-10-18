@@ -25,7 +25,7 @@ import { useState } from 'react';
 import { StarIcon } from '@heroicons/react/20/solid';
 import { Radio, RadioGroup } from '@headlessui/react';
 
-import { products } from '../../assets/assets';
+import { products } from '../../public/assets/assets';
 const product = products[0];
 const product1 = {
   name: 'Basic Tee 6-Pack',

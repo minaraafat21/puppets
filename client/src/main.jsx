@@ -7,9 +7,20 @@ import {
 import App from "./App";
 import Record from "./components/Record";
 import RecordList from "./components/RecordList";
-import Hero from "./components/Hero";
-import Product from "./components/Product";  
+import Hero from "./components/Hero"; 
 import "./index.css";
+
+// ///////////////////
+import About from './pages/About.jsx'
+import Cart from './pages/Cart.jsx'
+import Collection from './pages/Collection.jsx'
+import Content from './pages/Content.jsx'
+import Home from './pages/Home.jsx'
+import Login from './pages/Login.jsx'
+import Orders from './pages/Orders.jsx'
+import PlaceOrder from './pages/PlaceOrder.jsx'
+import Product from './pages/Product.jsx'
+///////////////////////
 
 const router = createBrowserRouter([
   {
@@ -18,7 +29,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <RecordList />,
+        element: <Home />,
       },
     ],
   },
@@ -43,12 +54,12 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path:"/home",
+    path:"/shop",
     element: <App />,
     children: [
       {
-        path: "/home",
-        element: <Hero />,
+        path: "/shop",
+        element: <RecordList />,
 
   }
   ]

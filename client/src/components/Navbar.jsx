@@ -11,11 +11,11 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { assets } from '../../public/assets/assets';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import React, { useState } from 'react';
-import Cart  from './Cart';
+import Cart from './Cart';
 
 const navigation = [
   { name: 'Home', href: '/', current: true },
-  { name: 'shop', href: '/content', current: false },
+  { name: 'shop', href: '/shop', current: false },
   { name: 'About', href: '/about', current: false },
   { name: 'Contact', href: '#', current: false },
 ];
@@ -24,10 +24,8 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-
 export default function Navbar() {
-  
-const [cartOpen, setCartOpen] = useState(false);
+  const [cartOpen, setCartOpen] = useState(false);
   return (
     <Disclosure as="nav" className="bg-gray-800">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">

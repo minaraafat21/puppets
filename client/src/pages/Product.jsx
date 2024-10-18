@@ -1,5 +1,5 @@
 import React from 'react';
-import ProductView from '../components/Navbar/ProductView';
+import ProductView from '../components/ProductView';
 const Product = () => {
   return (
     <div>

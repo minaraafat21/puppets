@@ -1,5 +1,5 @@
 import React from 'react';
-import Shop from '../components/Navbar/Shop';
+import Shop from '../components/Shop';
 
 const Content = () => {
   return (

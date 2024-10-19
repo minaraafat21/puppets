@@ -14,6 +14,7 @@ import React, { useState } from 'react';
 import Cart from './Cart';
 import { useOutletContext } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { useRecords } from '../context/ProductsContext';
 
 const navigation = [
   { name: 'Home', href: '/', current: true },
@@ -28,18 +29,27 @@ function classNames(...classes) {
 
 export default function Navbar() {
   const { setCartOpen } = useCart();
-  const [searchQuery, setSearchQuery] = useState(''); 
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const contextProducts = useRecords();
+  const [products, setProductss] = useState(contextProducts);
+
+  const [suggestions, setSuggestions] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(false);
+
 
   // dynamic searching
   const handleInputChange = (e) => {
     const value = e.target.value;
     setSearchQuery(value);
+    console.log('Search Query:', products);
 
     if (value) {
       // Filter suggestions based on the search query
-      const filteredSuggestions = mockProducts.filter((product) =>
-        product.name.toLowerCase().includes(value.toLowerCase())
+      const filteredSuggestions = products.filter((product) =>
+        product.name.toLowerCase().includes(value.toLowerCase()),
       );
+      console.log('Filtered Suggestions:', filteredSuggestions);
       setSuggestions(filteredSuggestions);
       setShowDropdown(true); // Show the dropdown when there's input
     } else {
@@ -153,22 +163,16 @@ export default function Navbar() {
           </div>
 
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-    
-
-            {/* Search Bar */}
-            <form
-              className="relative"
-              onSubmit={(e) => handleSearch(e)} // Add search handler here
-            >
+            <form className="relative" onSubmit={(e) => e.preventDefault()}>
               <input
                 type="text"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 placeholder="Search..."
                 value={searchQuery} // Controlled input value
-                onChange={(e) => setSearchQuery(e.target.value)} // Update search query state
+                onChange={(e) => handleInputChange(e)} // Pass the event object properly
               />
               <button
-                type="submit"
+                type="button"
                 className="absolute inset-y-0 right-0 flex items-center px-2"
               >
                 <svg
@@ -186,7 +190,31 @@ export default function Navbar() {
                   />
                 </svg>
               </button>
+            
+
+            {/* Search Suggestions Dropdown */}
+            {showDropdown && (
+              <div className="absolute z-10 mt-1 w-full bg-white shadow-lg rounded-md max-h-60 overflow-auto">
+                {suggestions.length > 0 ? (
+                  suggestions.map((product) => (
+                    <div
+                      key={product.id}
+                      className="px-4 py-2 cursor-pointer hover:bg-gray-100 text-gray-700"
+                      onClick={() => {
+                        setSearchQuery(product.name);
+                        setShowDropdown(false);
+                      }}
+                    >
+                      {product.name}
+                    </div>
+                  ))
+                ) : (
+                  <div className="px-4 py-2 text-gray-500">No results found</div>
+                )}
+              </div>
+            )}
             </form>
+          
 
             <button
               type="button"

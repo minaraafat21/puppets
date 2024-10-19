@@ -7,6 +7,7 @@ import { useOutletContext } from 'react-router-dom';
 import Cart from './Cart';
 
 import { products } from '../../public/assets/assets';
+import { useCart } from '../context/CartContext';
 const product = products[0];
 const reviews = { href: '#', average: 4, totalCount: 117 };
 
@@ -18,7 +19,7 @@ export default function ProductView() {
   const [selectedColor, setSelectedColor] = useState(product.colors[0]);
   const [selectedSize, setSelectedSize] = useState(product.sizes[2]);
 
-  const { cartProducts, setCartProducts, cartOpen, setCartOpen } = useOutletContext();
+  const { cartProducts, setCartProducts, cartOpen, setCartOpen } = useCart();
   console.log(cartProducts);
 
   function addToCart(event,product) {
@@ -30,7 +31,7 @@ export default function ProductView() {
 
   return (
     <div>
-      <Cart open={cartOpen} setOpen={setCartOpen} />
+      {/* <Cart open={cartOpen} setOpen={setCartOpen} /> */}
     
       <div className="bg-white">
         

@@ -10,17 +10,18 @@ import {
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
 import { useOutletContext } from "react-router-dom";
+import { useCart } from '../context/CartContext';
 
 
 
-export default function Cart({open, setOpen}) {
+export default function Cart() {
 
-  const { cartProducts, setCartProducts, cartOpen, setCartOpen } = useOutletContext();
+  const { cartProducts, setCartProducts, cartOpen, setCartOpen } = useCart();
   console.log(cartProducts);
 
 
   return (
-    <Dialog open={open} onClose={setOpen} className="relative z-10">
+    <Dialog open={cartOpen} onClose={setCartOpen} className="relative z-10">
       <DialogBackdrop
         transition
         className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity duration-500 ease-in-out data-[closed]:opacity-0"
@@ -42,7 +43,7 @@ export default function Cart({open, setOpen}) {
                     <div className="ml-3 flex h-7 items-center">
                       <button
                         type="button"
-                        onClick={() => setOpen(false)}
+                        onClick={() => setCartOpen(false)}
                         className="relative -m-2 p-2 text-gray-400 hover:text-gray-500"
                       >
                         <span className="absolute -inset-0.5" />
@@ -123,7 +124,7 @@ export default function Cart({open, setOpen}) {
                       or{' '}
                       <button
                         type="button"
-                        onClick={() => setOpen(false)}
+                        onClick={() => setCartOpen(false)}
                         className="font-medium text-indigo-600 hover:text-indigo-500"
                       >
                         Continue Shopping

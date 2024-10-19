@@ -28,6 +28,24 @@ function classNames(...classes) {
 
 export default function Navbar() {
   const { setCartOpen } = useCart();
+  const [searchQuery, setSearchQuery] = useState(''); 
+
+  // dynamic searching
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setSearchQuery(value);
+
+    if (value) {
+      // Filter suggestions based on the search query
+      const filteredSuggestions = mockProducts.filter((product) =>
+        product.name.toLowerCase().includes(value.toLowerCase())
+      );
+      setSuggestions(filteredSuggestions);
+      setShowDropdown(true); // Show the dropdown when there's input
+    } else {
+      setShowDropdown(false); // Hide the dropdown if there's no input
+    }
+  };
   return (
     <Disclosure as="nav" className="bg-gray-800">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -135,25 +153,40 @@ export default function Navbar() {
           </div>
 
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            <button
-              type="button"
-              className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none"
+    
+
+            {/* Search Bar */}
+            <form
+              className="relative"
+              onSubmit={(e) => handleSearch(e)} // Add search handler here
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-6"
+              <input
+                type="text"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                placeholder="Search..."
+                value={searchQuery} // Controlled input value
+                onChange={(e) => setSearchQuery(e.target.value)} // Update search query state
+              />
+              <button
+                type="submit"
+                className="absolute inset-y-0 right-0 flex items-center px-2"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-                />
-              </svg>
-            </button>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="size-6 text-gray-500"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                  />
+                </svg>
+              </button>
+            </form>
 
             <button
               type="button"
@@ -176,8 +209,6 @@ export default function Navbar() {
                 />
               </svg>
             </button>
-
-            
 
             {/* Profile dropdown */}
             <Menu as="div" className="relative ml-3">

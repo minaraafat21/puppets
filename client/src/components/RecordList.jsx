@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useRecords } from '../context/ProductsContext';
 
 const Record = (props) => (
   <tr className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
@@ -36,31 +37,18 @@ const Record = (props) => (
 );
 
 export default function RecordList() {
+  const contextRecords = useRecords(); 
   const [records, setRecords] = useState([]);
 
-  // This method fetches the records from the database.
+  // If using context, make sure to set records from context if available
   useEffect(() => {
-    async function getRecords() {
-      const response = await fetch(`http://localhost:5050/record/`);
-      if (!response.ok) {
-        const message = `An error occurred: ${response.statusText}`;
-        console.error(message);
-        return;
-      }
-      const records = await response.json();
-      setRecords(records);
+    if (Array.isArray(contextRecords)) {
+      setRecords(contextRecords);
     }
-    getRecords();
-    return;
-  }, [records.length]);
+  }, [contextRecords]);
 
-  // This method will delete a record
-  async function deleteRecord(id) {
-    await fetch(`http://localhost:5050/record/${id}`, {
-      method: 'DELETE',
-    });
-    const newRecords = records.filter((el) => el._id !== id);
-    setRecords(newRecords);
+  if (records.length === 0) {
+    return <div>No records found.</div>;
   }
 
   // This method will map out the records on the table

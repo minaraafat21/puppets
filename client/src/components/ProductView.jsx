@@ -21,12 +21,11 @@ export default function ProductView() {
   const { cartProducts, setCartProducts, cartOpen, setCartOpen } = useOutletContext();
   console.log(cartProducts);
 
-  function addToCart(product) {
-    
+  function addToCart(event,product) {
+    event.preventDefault(); // Prevent form submission
     console.log('hi');
     setCartProducts([...cartProducts, product]);
-    console.log(cartProducts);
-    // setCartOpen(true);
+    setCartOpen(true);
   }
 
   return (
@@ -166,7 +165,7 @@ export default function ProductView() {
 
                 <button
                   type="submit"
-                  onClick={() => addToCart(product)}
+                  onClick={(event) => addToCart(event,product)}
                   className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                   Add to bag

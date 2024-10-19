@@ -17,7 +17,11 @@ import { useCart } from '../context/CartContext';
 export default function Cart() {
 
   const { cartProducts, setCartProducts, cartOpen, setCartOpen } = useCart();
-  console.log(cartProducts);
+  // console.log(cartProducts);
+  function removeProduct(id) {
+    const newProducts = cartProducts.filter((product) => product.id !== id);
+    setCartProducts(newProducts);
+  }
 
 
   return (
@@ -90,6 +94,7 @@ export default function Cart() {
                                   <button
                                     type="button"
                                     className="font-medium text-indigo-600 hover:text-indigo-500"
+                                    onClick={() => removeProduct(product.id)}
                                   >
                                     Remove
                                   </button>

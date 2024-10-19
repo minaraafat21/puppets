@@ -4,7 +4,7 @@ const RecordsContext = createContext();
 
 export const ProductProvider = ({ children }) => {
   const [records, setRecords] = useState([]);
-  console.log({records});
+  console.log({ records });
 
   useEffect(() => {
     async function getRecords() {
@@ -28,8 +28,6 @@ export const ProductProvider = ({ children }) => {
     const newRecords = records.filter((el) => el._id !== id);
     setRecords(newRecords);
   }
-
-  
 
   return (
     <RecordsContext.Provider value={records}>

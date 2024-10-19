@@ -9,6 +9,7 @@ import Record from "./components/Record";
 import RecordList from "./components/RecordList";
 import Hero from "./components/Hero"; 
 import "./index.css";
+import { useParams } from "react-router";
 
 // ///////////////////
 import About from './pages/About.jsx'
@@ -70,9 +71,14 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/product/:productId',
-        element: <Product />,  
+        element: <ProductWrapper />,  
   }]}
 ]);
+
+function ProductWrapper() {
+  const { productId } = useParams();
+  return <Product id={productId} />;
+}
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

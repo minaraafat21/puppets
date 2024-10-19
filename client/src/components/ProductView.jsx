@@ -5,36 +5,43 @@ import { StarIcon } from '@heroicons/react/20/solid';
 import { Radio, RadioGroup } from '@headlessui/react';
 import { useOutletContext } from 'react-router-dom';
 import Cart from './Cart';
-
-import { products } from '../../public/assets/assets';
 import { useCart } from '../context/CartContext';
-const product = products[0];
+import { useRecords } from '../context/ProductsContext';
 const reviews = { href: '#', average: 4, totalCount: 117 };
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function ProductView() {
-  const [selectedColor, setSelectedColor] = useState(product.colors[0]);
-  const [selectedSize, setSelectedSize] = useState(product.sizes[2]);
-
+export default function ProductView({ id }) {
   const { cartProducts, setCartProducts, cartOpen, setCartOpen } = useCart();
-  console.log(cartProducts);
+  const contextProducts = useRecords();
+  const [products, setProducts] = useState(contextProducts);
+  const stringId = id.id.replace(':', '');
+  const idNumber = parseInt(stringId);
+  console.log(products);
 
-  function addToCart(event,product) {
+  // Check if the product exists before using it
+  const product = products[idNumber];
+  // console.log(product.images);
+  if (!product) {
+    return <div>Product not found</div>;
+  }
+
+
+
+  console.log(product);
+
+  function addToCart(event, product) {
     event.preventDefault(); // Prevent form submission
-    console.log('hi');
     setCartProducts([...cartProducts, product]);
     setCartOpen(true);
   }
-
   return (
     <div>
       {/* <Cart open={cartOpen} setOpen={setCartOpen} /> */}
-    
+
       <div className="bg-white">
-        
         <div className="pt-6">
           <nav aria-label="Breadcrumb">
             <ol
@@ -57,31 +64,31 @@ export default function ProductView() {
           <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
             <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
               <img
-                alt={product.images[0].alt}
-                src={product.images[0]}
+                alt={"hi"}
+                src={'../public/assets/' + product.images[0]}
                 className="h-full w-full object-cover object-center"
               />
             </div>
             <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
               <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
                 <img
-                  alt={product.images[1].alt}
-                  src={product.images[1]}
+                  alt={'public/assets/' +product.images[0].alt}
+                  src={'../public/assets/' +product.images[1]}
                   className="h-full w-full object-cover object-top"
                 />
               </div>
               <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
                 <img
-                  alt={product.images[2].alt}
-                  src={product.images[2]}
+                  alt={'public/assets/' +product.images[0].alt}
+                  src={'../public/assets/' +product.images[2] }
                   className="h-full w-full object-cover object-top"
                 />
               </div>
             </div>
             <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
               <img
-                alt={product.images[3].alt}
-                src={product.images[3]}
+                alt={'public/assets/' + product.images[0].alt}
+                src={'../public/assets/' +product.images[3]}
                 className="h-full w-full object-cover object-center"
               />
             </div>
@@ -130,48 +137,16 @@ export default function ProductView() {
                 </div>
               </div>
 
-              <form className="mt-10">
-                {/* Colors */}
-                <div>
-                  <h3 className="text-sm font-medium text-gray-900">Color</h3>
-
-                  <fieldset aria-label="Choose a color" className="mt-4">
-                    <RadioGroup
-                      value={selectedColor}
-                      onChange={setSelectedColor}
-                      className="flex items-center space-x-3"
-                    >
-                      {product.colors.map((color) => (
-                        <Radio
-                          key={color.name}
-                          value={color}
-                          aria-label={color.name}
-                          className={classNames(
-                            color.selectedClass,
-                            'relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none data-[checked]:ring-2 data-[focus]:data-[checked]:ring data-[focus]:data-[checked]:ring-offset-1',
-                          )}
-                        >
-                          <span
-                            aria-hidden="true"
-                            className={classNames(
-                              color.class,
-                              'h-8 w-8 rounded-full border border-black border-opacity-10',
-                            )}
-                          />
-                        </Radio>
-                      ))}
-                    </RadioGroup>
-                  </fieldset>
-                </div>
+              
 
                 <button
                   type="submit"
-                  onClick={(event) => addToCart(event,product)}
+                  onClick={(event) => addToCart(event, product)}
                   className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                   Add to bag
                 </button>
-              </form>
+              
             </div>
 
             <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
@@ -180,12 +155,16 @@ export default function ProductView() {
                 <h3 className="sr-only">Description</h3>
 
                 <div className="space-y-6">
-                  <p className="text-base text-gray-900">{product.description}</p>
+                  <p className="text-base text-gray-900">
+                    {product.description}
+                  </p>
                 </div>
               </div>
 
               <div className="mt-10">
-                <h3 className="text-sm font-medium text-gray-900">Highlights</h3>
+                <h3 className="text-sm font-medium text-gray-900">
+                  Highlights
+                </h3>
 
                 <div className="mt-4">
                   <ul role="list" className="list-disc space-y-2 pl-4 text-sm">

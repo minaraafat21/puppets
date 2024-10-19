@@ -1,9 +1,9 @@
 import React from 'react';
 import ProductView from '../components/ProductView';
-const Product = () => {
+const Product = (id) => {
   return (
     <div>
-      <ProductView />
+      <ProductView id ={id} />
     </div>
   );
 };

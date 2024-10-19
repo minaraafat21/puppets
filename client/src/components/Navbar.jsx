@@ -33,10 +33,10 @@ export default function Navbar() {
 
   const contextProducts = useRecords();
   const [products, setProductss] = useState(contextProducts);
+  console.log('Products:', products);
 
   const [suggestions, setSuggestions] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
-
 
   // dynamic searching
   const handleInputChange = (e) => {
@@ -190,31 +190,31 @@ export default function Navbar() {
                   />
                 </svg>
               </button>
-            
 
-            {/* Search Suggestions Dropdown */}
-            {showDropdown && (
-              <div className="absolute z-10 mt-1 w-full bg-white shadow-lg rounded-md max-h-60 overflow-auto">
-                {suggestions.length > 0 ? (
-                  suggestions.map((product) => (
-                    <div
-                      key={product.id}
-                      className="px-4 py-2 cursor-pointer hover:bg-gray-100 text-gray-700"
-                      onClick={() => {
-                        setSearchQuery(product.name);
-                        setShowDropdown(false);
-                      }}
-                    >
-                      {product.name}
+              {/* Search Suggestions Dropdown */}
+              {showDropdown && (
+                <div className="absolute z-10 mt-1 w-full bg-white shadow-lg rounded-md max-h-60 overflow-auto">
+                  {suggestions.length > 0 ? (
+                    suggestions.map((product) => (
+                      <div
+                        key={product.id}
+                        className="px-4 py-2 cursor-pointer hover:bg-gray-100 text-gray-700"
+                        onClick={() => {
+                          setSearchQuery(product.name);
+                          setShowDropdown(false);
+                        }}
+                      >
+                        {product.name}
+                      </div>
+                    ))
+                  ) : (
+                    <div className="px-4 py-2 text-gray-500">
+                      No results found
                     </div>
-                  ))
-                ) : (
-                  <div className="px-4 py-2 text-gray-500">No results found</div>
-                )}
-              </div>
-            )}
+                  )}
+                </div>
+              )}
             </form>
-          
 
             <button
               type="button"

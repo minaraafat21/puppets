@@ -9,21 +9,28 @@ import {
 } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 
-
-
 export default function Cart() {
-
   const { cartProducts, setCartProducts, cartOpen, setCartOpen } = useCart();
+
   // console.log(cartProducts);
   function removeProduct(id) {
     const newProducts = cartProducts.filter((product) => product.id !== id);
     setCartProducts(newProducts);
   }
 
-
+  function calculate_total(cartProducts) {
+    let total = 0;
+    cartProducts.forEach((product) => {
+      // convert product price to int
+      let price = parseInt(product.price);
+      // console.log('Product price:', price);
+      total += price;
+    });
+    return total;
+  }
   return (
     <Dialog open={cartOpen} onClose={setCartOpen} className="relative z-10">
       <DialogBackdrop
@@ -67,8 +74,8 @@ export default function Cart() {
                           <li key={product.id} className="flex py-6">
                             <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                               <img
-                                alt={product.imageAlt}
-                                src={product.imageSrc}
+                                alt={product.name}
+                                src={'../public/assets/' + product.imageSrc}
                                 className="h-full w-full object-cover object-center"
                               />
                             </div>
@@ -79,7 +86,7 @@ export default function Cart() {
                                   <h3>
                                     <a href={product.href}>{product.name}</a>
                                   </h3>
-                                  <p className="ml-4">{product.price}</p>
+                                  <p className="ml-4">{product.price + " EGP"}</p>
                                 </div>
                                 <p className="mt-1 text-sm text-gray-500">
                                   {product.color}
@@ -111,7 +118,7 @@ export default function Cart() {
                 <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                   <div className="flex justify-between text-base font-medium text-gray-900">
                     <p>Subtotal</p>
-                    <p>$262.00</p>
+                    <p>{calculate_total(cartProducts) + " EGP"}</p>
                   </div>
                   <p className="mt-0.5 text-sm text-gray-500">
                     Shipping and taxes calculated at checkout.

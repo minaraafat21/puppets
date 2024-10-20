@@ -34,14 +34,14 @@ export default function ProductView({ id }) {
   // Check if the product exists before using it
   const product = products.find((product) => product.id === idNumber);
   // console.log('Product img:', product.images);
-  if (!product) {
-    return <div>Product not found</div>;
-  }
 
   function addToCart(event, product) {
     event.preventDefault(); // Prevent form submission
     setCartProducts([...cartProducts, product]);
     setCartOpen(true);
+  }
+  if (!product) {
+    return <div></div>;
   }
   return (
     <div>
@@ -124,7 +124,7 @@ export default function ProductView({ id }) {
             <div className="mt-4 lg:row-span-3 lg:mt-0">
               <h2 className="sr-only">Product information</h2>
               <p className="text-3xl tracking-tight text-gray-900">
-                {product.price}
+                {product.price + " EGP"}
               </p>
 
               {/* Reviews */}

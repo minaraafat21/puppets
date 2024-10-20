@@ -244,7 +244,7 @@ export default function Navbar() {
               </svg>
             </button>
 
-            {/* Profile dropdown */}
+            {/* Profile dropdown
             <Menu as="div" className="relative ml-3">
               <div>
                 <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
@@ -286,7 +286,7 @@ export default function Navbar() {
                   </a>
                 </MenuItem>
               </MenuItems>
-            </Menu>
+            </Menu> */}
           </div>
         </div>
       </div>

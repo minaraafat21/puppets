@@ -4,7 +4,6 @@ const RecordsContext = createContext();
 
 export const ProductProvider = ({ children }) => {
   const [records, setRecords] = useState([]);
-  console.log({ records });
 
   useEffect(() => {
     async function getRecords() {
@@ -15,6 +14,7 @@ export const ProductProvider = ({ children }) => {
         return;
       }
       const records = await response.json();
+      console.log('products context :' + { records });
       setRecords(records);
     }
     getRecords();

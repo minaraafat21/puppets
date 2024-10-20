@@ -7,6 +7,8 @@ import { useOutletContext } from 'react-router-dom';
 import Cart from './Cart';
 import { useCart } from '../context/CartContext';
 import { useRecords } from '../context/ProductsContext';
+import { useEffect } from 'react';
+
 const reviews = { href: '#', average: 4, totalCount: 117 };
 
 function classNames(...classes) {
@@ -16,21 +18,25 @@ function classNames(...classes) {
 export default function ProductView({ id }) {
   const { cartProducts, setCartProducts, cartOpen, setCartOpen } = useCart();
   const contextProducts = useRecords();
-  const [products, setProducts] = useState(contextProducts);
+  const [products, setProducts] = useState([]);
+
+  // Use effect to update products when contextProducts changes
+  useEffect(() => {
+    if (contextProducts.length > 0) {
+      setProducts(contextProducts);
+    }
+  }, [contextProducts]); // Run when contextProducts changes
+
   const stringId = id.id.replace(':', '');
   const idNumber = parseInt(stringId);
-  console.log(products);
+
+  console.log('Product view products:', products);
 
   // Check if the product exists before using it
   const product = products[idNumber];
-  // console.log(product.images);
   if (!product) {
     return <div>Product not found</div>;
   }
-
-
-
-  console.log(product);
 
   function addToCart(event, product) {
     event.preventDefault(); // Prevent form submission
@@ -64,7 +70,7 @@ export default function ProductView({ id }) {
           <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
             <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
               <img
-                alt={"hi"}
+                alt={'hi'}
                 src={'../public/assets/' + product.images[0]}
                 className="h-full w-full object-cover object-center"
               />
@@ -72,15 +78,15 @@ export default function ProductView({ id }) {
             <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
               <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
                 <img
-                  alt={'public/assets/' +product.images[0].alt}
-                  src={'../public/assets/' +product.images[1]}
+                  alt={'public/assets/' + product.images[0].alt}
+                  src={'../public/assets/' + product.images[1]}
                   className="h-full w-full object-cover object-top"
                 />
               </div>
               <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
                 <img
-                  alt={'public/assets/' +product.images[0].alt}
-                  src={'../public/assets/' +product.images[2] }
+                  alt={'public/assets/' + product.images[0].alt}
+                  src={'../public/assets/' + product.images[2]}
                   className="h-full w-full object-cover object-top"
                 />
               </div>
@@ -88,7 +94,7 @@ export default function ProductView({ id }) {
             <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
               <img
                 alt={'public/assets/' + product.images[0].alt}
-                src={'../public/assets/' +product.images[3]}
+                src={'../public/assets/' + product.images[3]}
                 className="h-full w-full object-cover object-center"
               />
             </div>
@@ -137,16 +143,13 @@ export default function ProductView({ id }) {
                 </div>
               </div>
 
-              
-
-                <button
-                  type="submit"
-                  onClick={(event) => addToCart(event, product)}
-                  className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                >
-                  Add to bag
-                </button>
-              
+              <button
+                type="submit"
+                onClick={(event) => addToCart(event, product)}
+                className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              >
+                Add to bag
+              </button>
             </div>
 
             <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">

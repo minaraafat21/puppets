@@ -20,7 +20,6 @@ export default function ProductView({ id }) {
   const contextProducts = useRecords();
   const [products, setProducts] = useState([]);
 
-  // Use effect to update products when contextProducts changes
   useEffect(() => {
     if (contextProducts.length > 0) {
       setProducts(contextProducts);
@@ -30,10 +29,11 @@ export default function ProductView({ id }) {
   const stringId = id.id.replace(':', '');
   const idNumber = parseInt(stringId);
 
-  console.log('Product view products:', products);
+  // console.log('Product view products:', products);
 
   // Check if the product exists before using it
-  const product = products[idNumber];
+  const product = products.find((product) => product.id === idNumber);
+  // console.log('Product img:', product.images);
   if (!product) {
     return <div>Product not found</div>;
   }
@@ -45,8 +45,6 @@ export default function ProductView({ id }) {
   }
   return (
     <div>
-      {/* <Cart open={cartOpen} setOpen={setCartOpen} /> */}
-
       <div className="bg-white">
         <div className="pt-6">
           <nav aria-label="Breadcrumb">
@@ -68,35 +66,49 @@ export default function ProductView({ id }) {
 
           {/* Image gallery */}
           <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+            {/* First image */}
+
             <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
-              <img
-                alt={'hi'}
-                src={'../public/assets/' + product.images[0]}
-                className="h-full w-full object-cover object-center"
-              />
+              {product?.images?.[0] && (
+                <img
+                  alt={product.name}
+                  src={'../public/assets/' + product.images[0]}
+                  className="h-full w-full object-cover object-center"
+                />
+              )}
             </div>
+
+            {/* Second and third images */}
             <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
               <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-                <img
-                  alt={'public/assets/' + product.images[0].alt}
-                  src={'../public/assets/' + product.images[1]}
-                  className="h-full w-full object-cover object-top"
-                />
+                {product?.images?.[1] && (
+                  <img
+                    alt={'Image 2'}
+                    src={'../public/assets/' + product.images[1]}
+                    className="h-full w-full object-cover object-top"
+                  />
+                )}
               </div>
               <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-                <img
-                  alt={'public/assets/' + product.images[0].alt}
-                  src={'../public/assets/' + product.images[2]}
-                  className="h-full w-full object-cover object-top"
-                />
+                {product?.images?.[2] && (
+                  <img
+                    alt={'Image 3'}
+                    src={'../public/assets/' + product.images[2]}
+                    className="h-full w-full object-cover object-top"
+                  />
+                )}
               </div>
             </div>
+
+            {/* Fourth image */}
             <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
-              <img
-                alt={'public/assets/' + product.images[0].alt}
-                src={'../public/assets/' + product.images[3]}
-                className="h-full w-full object-cover object-center"
-              />
+              {product?.images?.[3] && (
+                <img
+                  alt={product.images[3].alt || 'Image 4'}
+                  src={'../public/assets/' + product.images[3]}
+                  className="h-full w-full object-cover object-center"
+                />
+              )}
             </div>
           </div>
 

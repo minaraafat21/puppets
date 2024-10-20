@@ -10,7 +10,7 @@ import {
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { assets } from '../../public/assets/assets';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Cart from './Cart';
 import { useOutletContext } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
@@ -32,7 +32,13 @@ export default function Navbar() {
   const [searchQuery, setSearchQuery] = useState('');
 
   const contextProducts = useRecords();
-  const [products, setProductss] = useState(contextProducts);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    if (contextProducts.length > 0) {
+      setProducts(contextProducts);
+    }
+  }, [contextProducts]);
   console.log('Products:', products);
 
   const [suggestions, setSuggestions] = useState([]);

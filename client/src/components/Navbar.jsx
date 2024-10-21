@@ -18,7 +18,7 @@ import { useRecords } from '../context/ProductsContext';
 
 const navigation = [
   { name: 'Home', href: '/', current: true },
-  { name: 'shop', href: '/shop', current: false },
+  { name: 'puppets', href: '/shop', current: false },
   { name: 'About', href: '/about', current: false },
   { name: 'Contact', href: '#', current: false },
 ];
@@ -63,7 +63,7 @@ export default function Navbar() {
     }
   };
   return (
-    <Disclosure as="nav" className="bg-gray-800">
+    <Disclosure as="nav" className="bg-custom-green">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center ">

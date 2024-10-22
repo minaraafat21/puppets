@@ -94,7 +94,7 @@ export default function Cart() {
                               </div>
                               <div className="flex flex-1 items-end justify-between text-sm">
                                 <p className="text-gray-500">
-                                  Qty {product.quantity}
+                                  {/*  */}
                                 </p>
 
                                 <div className="flex">
@@ -125,8 +125,9 @@ export default function Cart() {
                   </p>
                   <div className="mt-6">
                     <a
-                      href="#"
+                      href="/checkout"
                       className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+
                     >
                       Checkout
                     </a>

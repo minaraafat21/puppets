@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
-import Record from './components/Record';
+import Record from './components/admin/Record.jsx';
 import RecordList from './components/RecordList';
 import Hero from './components/Hero';
 import './index.css';
@@ -15,10 +15,11 @@ import Collection from './pages/Collection.jsx';
 import Content from './pages/Content.jsx';
 import Home from './pages/Home.jsx';
 import Login from './pages/Login.jsx';
-import Orders from './pages/Orders.jsx';
 import PlaceOrder from './pages/PlaceOrder.jsx';
 import Product from './pages/Product.jsx';
 import AdminLogin from './components/AdminLogin.jsx';
+import CheckoutPage from './pages/Checkout.jsx';
+import Orders from './components/admin/Orders.jsx';
 ///////////////////////
 
 const router = createBrowserRouter([
@@ -63,14 +64,36 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: '/about',
+    path: '/checkout',
     element: <App />,
     children: [
       {
-        path: '/about',
+        path: '/checkout',
+        element: <CheckoutPage />,
+      },
+    ],
+  },
+
+
+  {
+    path: '/admin/login',
+    element: <App />,
+    children: [
+      {
+        path: '/admin/login',
         element: <AdminLogin />,
       },
     ],
+  },
+  { path: '/admin/orders',
+    element: <App />,
+    children: [
+      {
+        path: '/admin/orders',
+        element: <Orders />,
+      },
+    ],
+
   },
   {
     path: '/product/:productId',

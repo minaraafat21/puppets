@@ -64,115 +64,117 @@ export default function Navbar() {
   };
   return (
     <Disclosure as="nav" className="bg-custom-green">
-      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-2 sm:px-2 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
-          <div className="absolute inset-y-0 left-0 flex items-center ">
-            {/* Mobile menu button*/}
-            <DisclosureButton className="group relative inline-flex items-start justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white sm:hidden">
-              <span className="absolute -inset-0.5" />
-              <span className="sr-only">Open main menu</span>
-              <Bars3Icon
-                aria-hidden="true"
-                className="block h-6 w-6 group-data-[open]:hidden"
-              />
-              <XMarkIcon
-                aria-hidden="true"
-                className="hidden h-6 w-6 group-data-[open]:block"
-              />
-            </DisclosureButton>
+          <div className='flex items-center'>
+            <div className=" inset-y-0 left-0 flex items-center  ">
+              {/* Mobile menu button*/}
+              <DisclosureButton className="group relative inline-flex items-start justify-center rounded-md p-2 text-gray-100 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white sm:hidden">
+                <span className="absolute -inset-0.5" />
+                <span className="sr-only">Open main menu</span>
+                <Bars3Icon
+                  aria-hidden="true"
+                  className="block h-6 w-6 group-data-[open]:hidden"
+                />
+                <XMarkIcon
+                  aria-hidden="true"
+                  className="hidden h-6 w-6 group-data-[open]:block"
+                />
+              </DisclosureButton>
 
-            <div className="flex flex-shrink-0 items-center">
-              <img
-                alt="Your Company"
-                src={assets.logo}
-                className="h-14 w-auto"
-              />
+              <div className="flex items-center justify-center sm:items-stretch sm:justify-start sm:mr-2">
+                <img
+                  alt=" puppets"
+                  src={assets.logo}
+                  className="h-auto w-20 "
+                />
+              </div>
             </div>
-          </div>
 
-          <div className="flex flex-2 items-center justify-center sm:items-stretch sm:justify-start"></div>
+            {/* <div className="flex flex-2 items-center justify-center sm:items-stretch sm:justify-start"></div> */}
 
-          <div className="flex flex-2 items-center justify-center sm:items-stretch sm:justify-start">
-            <div className="hidden sm:ml-6 sm:block">
-              <div className="flex space-x-4">
-                {navigation.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    aria-current={item.current ? 'page' : undefined}
-                    className={classNames(
-                      item.current
-                        ? 'bg-gray-900 text-white '
-                        : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                      'rounded-md px-3 py-2 text-sm font-medium',
-                    )}
-                  >
-                    {item.name}
-                  </a>
-                ))}
-                {/* categories */}
-                <Menu as="div" className="relative inline-block text-left">
-                  <div>
-                    <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset">
-                      categories
-                      <ChevronDownIcon
-                        aria-hidden="true"
-                        className="-mr-1 h-5 w-5 text-gray-400"
-                      />
-                    </MenuButton>
-                  </div>
-
-                  <MenuItems
-                    transition
-                    className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
-                  >
-                    <div className="py-1">
-                      <MenuItem>
-                        <a
-                          href="#"
-                          className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
-                        >
-                          Account settings
-                        </a>
-                      </MenuItem>
-                      <MenuItem>
-                        <a
-                          href="#"
-                          className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
-                        >
-                          Support
-                        </a>
-                      </MenuItem>
-                      <MenuItem>
-                        <a
-                          href="#"
-                          className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
-                        >
-                          License
-                        </a>
-                      </MenuItem>
-                      <form action="#" method="POST">
-                        <MenuItem>
-                          <button
-                            type="submit"
-                            className="block w-full px-4 py-2 text-left text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
-                          >
-                            Sign out
-                          </button>
-                        </MenuItem>
-                      </form>
+            <div className="flex flex-2 items-center justify-center sm:items-stretch sm:justify-start">
+              <div className="hidden sm:ml-6 sm:block">
+                <div className="flex space-x-4">
+                  {navigation.map((item) => (
+                    <a
+                      key={item.name}
+                      href={item.href}
+                      aria-current={item.current ? 'page' : undefined}
+                      className={classNames(
+                        item.current
+                          ? 'bg-gray-900 text-white '
+                          : 'text-gray-100 hover:bg-gray-700 hover:text-white',
+                        'rounded-md px-3 py-2 text-sm font-medium',
+                      )}
+                    >
+                      {item.name}
+                    </a>
+                  ))}
+                  {/* categories */}
+                  <Menu as="div" className="relative inline-block text-left">
+                    <div>
+                      <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm ">
+                        categories
+                        <ChevronDownIcon
+                          aria-hidden="true"
+                          className="-mr-1 h-5 w-5 text-gray-400"
+                        />
+                      </MenuButton>
                     </div>
-                  </MenuItems>
-                </Menu>
+
+                    <MenuItems
+                      transition
+                      className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+                    >
+                      <div className="py-1">
+                        <MenuItem>
+                          <a
+                            href="#"
+                            className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
+                          >
+                            Account settings
+                          </a>
+                        </MenuItem>
+                        <MenuItem>
+                          <a
+                            href="#"
+                            className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
+                          >
+                            Support
+                          </a>
+                        </MenuItem>
+                        <MenuItem>
+                          <a
+                            href="#"
+                            className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
+                          >
+                            License
+                          </a>
+                        </MenuItem>
+                        <form action="#" method="POST">
+                          <MenuItem>
+                            <button
+                              type="submit"
+                              className="block w-full px-4 py-2 text-left text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
+                            >
+                              Sign out
+                            </button>
+                          </MenuItem>
+                        </form>
+                      </div>
+                    </MenuItems>
+                  </Menu>
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+          <div className="inset-y-0 right-0 flex items-center pr-0 sm:inset-auto sm:pr-0">
             <form className="relative" onSubmit={(e) => e.preventDefault()}>
               <input
                 type="text"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block w-full sm:w-80 bg-transparent rounded-md border-0 py-1.5 text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-200  sm:text-sm sm:leading-6"
                 placeholder="Search..."
                 value={searchQuery} // Controlled input value
                 onChange={(e) => handleInputChange(e)} // Pass the event object properly
@@ -187,7 +189,7 @@ export default function Navbar() {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="size-6 text-gray-500"
+                  className="size-5 text-gray-100"
                 >
                   <path
                     strokeLinecap="round"
@@ -224,7 +226,7 @@ export default function Navbar() {
 
             <button
               type="button"
-              className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none "
+              className="relative rounded-full p-1 text-white hover:text-white focus:outline-none sm:ml-4"
               onClick={() => setCartOpen(true)}
             >
               {/* cart btn */}
@@ -243,50 +245,6 @@ export default function Navbar() {
                 />
               </svg>
             </button>
-
-            {/* Profile dropdown
-            <Menu as="div" className="relative ml-3">
-              <div>
-                <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                  <span className="absolute -inset-1.5" />
-                  <span className="sr-only">Open user menu</span>
-                  <img
-                    alt=""
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    className="h-8 w-8 rounded-full"
-                  />
-                </MenuButton>
-              </div>
-              <MenuItems
-                transition
-                className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
-              >
-                <MenuItem>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
-                  >
-                    Your Profile
-                  </a>
-                </MenuItem>
-                <MenuItem>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
-                  >
-                    Settings
-                  </a>
-                </MenuItem>
-                <MenuItem>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
-                  >
-                    Sign out
-                  </a>
-                </MenuItem>
-              </MenuItems>
-            </Menu> */}
           </div>
         </div>
       </div>
@@ -301,7 +259,7 @@ export default function Navbar() {
               aria-current={item.current ? 'page' : undefined}
               className={classNames(
                 item.current
-                  ? 'bg-gray-900 text-white'
+                  ? 'bg-custom-green text-white'
                   : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                 'block rounded-md px-3 py-2 text-base font-medium',
               )}

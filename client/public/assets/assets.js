@@ -1,4 +1,6 @@
-import logo from './logo.ico';
+import logo from './logo.png';
+import hero from './hero.png';
+import stitchHero from './stitchHero.png';
 import batman from './batman.jpg';
 import batman1 from './batman1.jpg';
 import batman2 from './batman2.jpg';
@@ -70,6 +72,8 @@ import stichFemale from './stitchFemale.jpg';
 
 export const assets = {
   logo,
+  hero,
+  stitchHero,
   batman,
   batman1,
   batman2,

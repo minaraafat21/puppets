@@ -1,32 +1,30 @@
-import express from "express";
-import cors from "cors";
-import records from "./routes/record.js";
-import orders from "./routes/orders.js";
+import express from 'express';
+import records from './routes/record.js'; // Adjust the path as needed
+import orders from './routes/orders.js'; // Adjust the path as needed
+import cors from 'cors';
+import { fileURLToPath } from 'url';
+import path from 'path';
 
-const PORT = process.env.PORT || 5050;
+// Get __dirname equivalent in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+
 const app = express();
+const PORT = process.env.PORT || 5050;
 
-app.use(cors());
+// Middleware
+app.use(cors({ origin: 'http://localhost:5173' })); // Enable CORS for your frontend origin
 app.use(express.json());
-app.use("/record", records);
-app.use("/orders", orders);
 
+// Routes
+app.use('/record', records);
+app.use('/orders', orders);
 
-// start the Express server
+// Serve static files (if needed)
+app.use('/assets', express.static(path.join(__dirname, '../assets')));
+
+// Start the Express server
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });
-
-
-const multer = require("multer");
-const path = require("path");
-
-const upload = multer({ dest: "../client/public/assets" }); // Set your desired folder
-
-app.post("/upload", upload.single("image"), (req, res) => {
-  const imagePath = path.join(__dirname, "assets", req.file.filename);
-  // Return the path where the image is stored
-  res.json({ imagePath: `/assets/${req.file.filename}` }); // Adjust the path according to your structure
-});
-
-// Other routes and app configurations

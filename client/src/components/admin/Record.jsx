@@ -10,10 +10,10 @@ export default function RecordForm() {
     description: "",
     category: "",
   });
+  const [file, setFile] = useState(null); // State for the image file
   const [isNew, setIsNew] = useState(true);
   const params = useParams();
   const navigate = useNavigate();
-  const [file, setFile] = useState(null); // To store the selected file
 
   useEffect(() => {
     async function fetchData() {
@@ -39,7 +39,6 @@ export default function RecordForm() {
       });
     }
     fetchData();
-    return;
   }, [params.id, navigate]);
 
   function updateForm(value) {
@@ -48,71 +47,45 @@ export default function RecordForm() {
     });
   }
 
-  async function onImageUpload(e) {
-    const selectedFile = e.target.files[0];
-    setFile(selectedFile);
-  }
-
-  async function uploadImage() {
-    if (!file) return;
-
-    const formData = new FormData();
-    formData.append("image", file);
-
-    const response = await fetch("http://localhost:5050/upload", {
-      method: "POST",
-      body: formData,
-    });
-
-    if (!response.ok) {
-      throw new Error(`Failed to upload image: ${response.statusText}`);
-    }
-
-    const data = await response.json();
-    return data.imagePath; // Assuming the server responds with the image path
-  }
-
   async function onSubmit(e) {
     e.preventDefault();
-    const record = { ...form };
-    delete record.id;
+
+    const formData = new FormData();
+    formData.append('name', form.name);
+    formData.append('price', form.price);
+    formData.append('description', form.description);
+    formData.append('category', form.category);
+
+    // Append file only if there is a file
+    if (file) {
+      formData.append('imageSrc', file); // The key should match what multer expects ('imageSrc')
+    }
 
     try {
-      let imagePath;
-
-      // Upload image and get the path
-      if (file) {
-        imagePath = await uploadImage();
-        record.imageSrc = imagePath; // Set the image path to the record
-      }
-
       let response;
       if (isNew) {
         response = await fetch("http://localhost:5050/record", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(record),
+          body: formData, // No need for 'Content-Type', it's automatically set when using FormData
         });
       } else {
         response = await fetch(`http://localhost:5050/record/${params.id}`, {
           method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(record),
+          body: formData,
         });
       }
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
+
+      const result = await response.json();
+      console.log('Record saved:', result);
     } catch (error) {
       console.error("A problem occurred adding or updating a record: ", error);
     } finally {
       setForm({ name: "", price: "", id: "", imageSrc: "", description: "", category: "" });
-      setFile(null); // Clear the file input
+      setFile(null); // Reset the file input
       navigate("/");
     }
   }
@@ -128,22 +101,72 @@ export default function RecordForm() {
               This information will be displayed publicly, so be careful what you share.
             </p>
           </div>
-          <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 ">
-            {/* Other input fields remain unchanged */}
+          <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8">
             <div className="sm:col-span-4">
-              <label htmlFor="imageSrc" className="block text-sm font-medium leading-6 text-slate-900">
-                Upload Image
-              </label>
+              <label htmlFor="name" className="block text-sm font-medium leading-6 text-slate-900">Name</label>
               <div className="mt-2">
                 <input
-                  type="file"
-                  accept="image/*"
-                  onChange={onImageUpload}
+                  type="text"
+                  name="name"
+                  id="name"
                   className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-slate-900 placeholder:text-slate-400 focus:ring-0 sm:text-sm sm:leading-6"
+                  placeholder="Record Name"
+                  value={form.name}
+                  onChange={(e) => updateForm({ name: e.target.value })}
                 />
               </div>
             </div>
-            {/* Other input fields remain unchanged */}
+            <div className="sm:col-span-4">
+              <label htmlFor="price" className="block text-sm font-medium leading-6 text-slate-900">Price</label>
+              <div className="mt-2">
+                <input
+                  type="text"
+                  name="price"
+                  id="price"
+                  className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-slate-900 placeholder:text-slate-400 focus:ring-0 sm:text-sm sm:leading-6"
+                  placeholder="Price"
+                  value={form.price}
+                  onChange={(e) => updateForm({ price: e.target.value })}
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-4">
+              <label htmlFor="imageSrc" className="block text-sm font-medium leading-6 text-slate-900">Image Upload</label>
+              <div className="mt-2">
+                <input
+                  type="file"
+                  accept="image/*" // Optional: restrict to image files
+                  onChange={(e) => setFile(e.target.files[0])}
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-4">
+              <label htmlFor="description" className="block text-sm font-medium leading-6 text-slate-900">Description</label>
+              <div className="mt-2">
+                <textarea
+                  name="description"
+                  id="description"
+                  className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-slate-900 placeholder:text-slate-400 focus:ring-0 sm:text-sm sm:leading-6"
+                  placeholder="Record Description"
+                  value={form.description}
+                  onChange={(e) => updateForm({ description: e.target.value })}
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-4">
+              <label htmlFor="category" className="block text-sm font-medium leading-6 text-slate-900">Category</label>
+              <div className="mt-2">
+                <input
+                  type="text"
+                  name="category"
+                  id="category"
+                  className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-slate-900 placeholder:text-slate-400 focus:ring-0 sm:text-sm sm:leading-6"
+                  placeholder="Category"
+                  value={form.category}
+                  onChange={(e) => updateForm({ category: e.target.value })}
+                />
+              </div>
+            </div>
           </div>
         </div>
         <input

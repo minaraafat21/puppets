@@ -210,6 +210,7 @@ export default function Navbar() {
                         onClick={() => {
                           setSearchQuery(product.name);
                           setShowDropdown(false);
+                          window.location.href = product.href;
                         }}
                       >
                         {product.name}

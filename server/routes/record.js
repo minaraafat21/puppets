@@ -3,8 +3,11 @@ import db from '../db/connection.js';
 import { ObjectId } from 'mongodb';
 import multer from 'multer';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
 const router = express.Router();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Set up storage for multer to save files in the assets folder
 const storage = multer.diskStorage({
@@ -50,7 +53,18 @@ router.get('/:id', async (req, res) => {
 // Add new record with image upload
 router.post('/', upload.single('imageSrc'), async (req, res) => {
   try {
-    const { name, price, description, category } = req.body;
+    const {
+      name,
+      price,
+      description,
+      category,
+      bestseller,
+      colors,
+      highlights,
+      details,
+      images,
+      breadcrumbs,
+    } = req.body;
 
     if (!req.file) {
       return res.status(400).send('No file uploaded');
@@ -58,11 +72,23 @@ router.post('/', upload.single('imageSrc'), async (req, res) => {
 
     const imageName = req.file.filename; // Get the saved file name
 
+    // Generate a new numeric ID (you may want to customize this logic)
+    const existingRecords = await db.collection('products').find({}).toArray();
+    const newId = existingRecords.length + 1; // Basic logic to generate a new numeric ID
+
     const newRecord = {
+      id: newId, // Assign the generated numeric ID
       name,
       price,
+      href: `product/:${newId}`, // Set href using the new numeric ID
       description,
       category,
+      bestseller: bestseller === 'true', // Convert to boolean
+      colors: colors ? JSON.parse(colors) : [], // Parse only if defined
+      highlights: highlights ? JSON.parse(highlights) : [], // Parse only if defined
+      details,
+      images: images ? JSON.parse(images) : [], // Parse only if defined
+      breadcrumbs: breadcrumbs ? JSON.parse(breadcrumbs) : [], // Parse only if defined
       imageSrc: imageName, // Store only the image name
     };
 
@@ -70,7 +96,12 @@ router.post('/', upload.single('imageSrc'), async (req, res) => {
     console.log('Insert result:', result); // Log the result
 
     if (result.acknowledged) {
-      res.json(result.ops[0]); // Only access ops[0] if result is acknowledged
+      // Use the insertedId to construct href
+      const insertedRecord = {
+        ...newRecord,
+        href: `product/:${newRecord.id}`, // Set href using the new numeric ID
+      };
+      res.json(insertedRecord); // Return the newly created record with href
     } else {
       res.status(500).send('Error inserting record');
     }
@@ -84,12 +115,31 @@ router.post('/', upload.single('imageSrc'), async (req, res) => {
 router.patch('/:id', upload.single('imageSrc'), async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, price, description, category } = req.body;
-    const updateData = {
+    const {
       name,
       price,
       description,
       category,
+      bestseller,
+      colors,
+      highlights,
+      details,
+      images,
+      breadcrumbs,
+    } = req.body;
+    const href = `product/:${id}`; // Correct href usage
+    const updateData = {
+      name,
+      price,
+      description,
+      href, // Include href in update data
+      category,
+      bestseller: bestseller === 'true', // Convert to boolean
+      colors: colors ? JSON.parse(colors) : [], // Parse only if defined
+      highlights: highlights ? JSON.parse(highlights) : [], // Parse only if defined
+      details,
+      images: images ? JSON.parse(images) : [], // Parse only if defined
+      breadcrumbs: breadcrumbs ? JSON.parse(breadcrumbs) : [], // Parse only if defined
     };
 
     if (req.file) {
@@ -104,7 +154,9 @@ router.patch('/:id', upload.single('imageSrc'), async (req, res) => {
       return res.status(404).send('Record not found');
     }
 
-    res.json({ message: 'Record updated successfully' });
+    // Include href in the response
+    const updatedRecord = { ...updateData, id: Number(id), href }; // Combine updateData with id and href
+    res.json(updatedRecord);
   } catch (err) {
     console.error('Error updating record:', err);
     res.status(500).send('Server error');

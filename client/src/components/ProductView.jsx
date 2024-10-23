@@ -69,10 +69,10 @@ export default function ProductView({ id }) {
             {/* First image */}
 
             <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
-              {product?.images?.[0] && (
+              {product?.imageSrc && (
                 <img
                   alt={product.name}
-                  src={'../public/assets/' + product.images[0]}
+                  src={'../public/assets/' + product.imageSrc}
                   className="h-full w-full object-cover object-center"
                 />
               )}

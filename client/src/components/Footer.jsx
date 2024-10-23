@@ -1,60 +1,44 @@
 'use client';
 
-import { Footer } from 'flowbite-react';
+import { Link } from 'react-router-dom';
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaWhatsapp } from 'react-icons/fa';
 import { assets } from '../../public/assets/assets';
-import {
-  BsFacebook,
-  BsInstagram,
-  BsWhatsapp,
-} from 'react-icons/bs';
-
 export function Footer1() {
   return (
-    <Footer container>
-      <div className="w-full">
-        <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
-          <div>
-            <Footer.Brand
-              href="/"
-              src="https://cdn.flowbite.com/assets/img/logos/logo.svg"
-              alt=" Logo"
-              name="Puppets"
-            />
-          </div>
-          <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6">
-            <div>
-              <Footer.Title title="about" />
-              <Footer.LinkGroup col>
-                <Footer.Link href="#">story</Footer.Link>
-                <Footer.Link href="#">Contact</Footer.Link>
-              </Footer.LinkGroup>
-            </div>
-            <div>
-              <Footer.Title title="Follow us" />
-              <Footer.LinkGroup col>
-                <Footer.Link href="#">Instagram</Footer.Link>
-                <Footer.Link href="#">Facebook</Footer.Link>
-              </Footer.LinkGroup>
-            </div>
-            <div>
-              <Footer.Title title="Legal" />
-              <Footer.LinkGroup col>
-                <Footer.Link href="#">Terms &amp; Conditions</Footer.Link>
-                <Footer.Link href="/admin/login">Admin Login</Footer.Link>
-              </Footer.LinkGroup>
-            </div>
-          </div>
+    <footer className="bg-gray-800 text-white py-6">
+      <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
+        <div className="flex items-center mb-4 md:mb-0">
+          <img src={assets.logo} alt="Logo" className="h-20 mr-3" />
+          
         </div>
-        <Footer.Divider />
-        <div className="w-full sm:flex sm:items-center sm:justify-between">
-          <Footer.Copyright href="#" by="Puppets" year={2024} />
-          <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
-            <Footer.Icon href="#" icon={BsFacebook} />
-            <Footer.Icon href="#" icon={BsInstagram} />
-            <Footer.Icon href="#" icon={BsWhatsapp} />
-          </div>
+        <div className="flex space-x-4 mb-4 md:mb-0">
+          <a
+            href="https://facebook.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaFacebook className="text-white hover:text-blue-500" />
+          </a>
+         
+          <a
+            href="https://www.instagram.com/puppets.eg/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaInstagram className="text-white hover:text-pink-500" />
+          </a>
+          <a
+            href="https://web.whatsapp.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaWhatsapp className="text-white hover:text-blue-700" />
+          </a>
         </div>
+        <Link to="/admin/login" className="text-white hover:text-gray-400">
+          Admin Login
+        </Link>
       </div>
-    </Footer>
+    </footer>
   );
 }

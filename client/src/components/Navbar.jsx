@@ -17,10 +17,10 @@ import { useCart } from '../context/CartContext';
 import { useRecords } from '../context/ProductsContext';
 
 const navigation = [
-  { name: 'Home', href: '/', current: true },
+  { name: 'Home', href: '/', current: false },
   { name: 'puppets', href: '/shop', current: false },
   { name: 'special request', href: '/special-request', current: false },
-  { name: 'Contact', href: '#', current: false },
+  { name: 'Contact', href: 'https://wa.me/qr/ZROLJSEPNSBGP1', current: false },
 ];
 
 function classNames(...classes) {
@@ -30,6 +30,7 @@ function classNames(...classes) {
 export default function Navbar() {
   const { setCartOpen } = useCart();
   const [searchQuery, setSearchQuery] = useState('');
+  const [categories, setCategories] = useState([]);
 
   const contextProducts = useRecords();
   const [products, setProducts] = useState([]);
@@ -37,9 +38,13 @@ export default function Navbar() {
   useEffect(() => {
     if (contextProducts.length > 0) {
       setProducts(contextProducts);
+      // Extract unique categories
+      const uniqueCategories = Array.from(
+        new Set(contextProducts.map((product) => product.category)),
+      );
+      setCategories(uniqueCategories);
     }
   }, [contextProducts]);
-  console.log('Products:', products);
 
   const [suggestions, setSuggestions] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -48,25 +53,24 @@ export default function Navbar() {
   const handleInputChange = (e) => {
     const value = e.target.value;
     setSearchQuery(value);
-    console.log('Search Query:', products);
 
     if (value) {
       // Filter suggestions based on the search query
       const filteredSuggestions = products.filter((product) =>
         product.name.toLowerCase().includes(value.toLowerCase()),
       );
-      console.log('Filtered Suggestions:', filteredSuggestions);
       setSuggestions(filteredSuggestions);
       setShowDropdown(true); // Show the dropdown when there's input
     } else {
       setShowDropdown(false); // Hide the dropdown if there's no input
     }
   };
+
   return (
     <Disclosure as="nav" className="bg-custom-green">
       <div className="mx-auto max-w-7xl px-2 sm:px-2 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
-          <div className='flex items-center'>
+          <div className="flex items-center">
             <div className=" inset-y-0 left-0 flex items-center  ">
               {/* Mobile menu button*/}
               <DisclosureButton className="group relative inline-flex items-start justify-center rounded-md p-2 text-gray-100 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white sm:hidden">
@@ -82,16 +86,14 @@ export default function Navbar() {
                 />
               </DisclosureButton>
 
-              <div className="flex items-center justify-center sm:items-stretch sm:justify-start sm:mr-2">
+              <div className="flex items-center justify-center sm:items-stretch sm:justify-start sm:mr-2 ">
                 <img
-                  alt=" puppets"
+                  alt="puppets"
                   src={assets.logo}
-                  className="h-auto w-20 "
+                  className="h-auto w-16 border-0 shadow-none outline-none"
                 />
               </div>
             </div>
-
-            {/* <div className="flex flex-2 items-center justify-center sm:items-stretch sm:justify-start"></div> */}
 
             <div className="flex flex-2 items-center justify-center sm:items-stretch sm:justify-start">
               <div className="hidden sm:ml-6 sm:block">
@@ -115,7 +117,7 @@ export default function Navbar() {
                   <Menu as="div" className="relative inline-block text-left">
                     <div>
                       <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm ">
-                        categories
+                        Categories
                         <ChevronDownIcon
                           aria-hidden="true"
                           className="-mr-1 h-5 w-5 text-gray-400"
@@ -128,40 +130,16 @@ export default function Navbar() {
                       className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
                     >
                       <div className="py-1">
-                        <MenuItem>
-                          <a
-                            href="#"
-                            className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
-                          >
-                            Account settings
-                          </a>
-                        </MenuItem>
-                        <MenuItem>
-                          <a
-                            href="#"
-                            className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
-                          >
-                            Support
-                          </a>
-                        </MenuItem>
-                        <MenuItem>
-                          <a
-                            href="#"
-                            className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
-                          >
-                            License
-                          </a>
-                        </MenuItem>
-                        <form action="#" method="POST">
-                          <MenuItem>
-                            <button
-                              type="submit"
-                              className="block w-full px-4 py-2 text-left text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
+                        {categories.map((category) => (
+                          <MenuItem key={category}>
+                            <a
+                              href={`/${category.toLowerCase()}`} // Adjust the href as needed
+                              className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
                             >
-                              Sign out
-                            </button>
+                              {category}
+                            </a>
                           </MenuItem>
-                        </form>
+                        ))}
                       </div>
                     </MenuItems>
                   </Menu>
@@ -249,27 +227,6 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-
-      <DisclosurePanel className="sm:hidden">
-        <div className="space-y-1 px-2 pb-3 pt-2">
-          {navigation.map((item) => (
-            <DisclosureButton
-              key={item.name}
-              as="a"
-              href={item.href}
-              aria-current={item.current ? 'page' : undefined}
-              className={classNames(
-                item.current
-                  ? 'bg-custom-green text-white'
-                  : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                'block rounded-md px-3 py-2 text-base font-medium',
-              )}
-            >
-              {item.name}
-            </DisclosureButton>
-          ))}
-        </div>
-      </DisclosurePanel>
     </Disclosure>
   );
 }

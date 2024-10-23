@@ -19,7 +19,7 @@ import { useRecords } from '../context/ProductsContext';
 const navigation = [
   { name: 'Home', href: '/', current: true },
   { name: 'puppets', href: '/shop', current: false },
-  { name: 'About', href: '/about', current: false },
+  { name: 'special request', href: '/special-request', current: false },
   { name: 'Contact', href: '#', current: false },
 ];
 

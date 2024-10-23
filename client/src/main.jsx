@@ -22,6 +22,8 @@ import CheckoutPage from './pages/Checkout.jsx';
 import Orders from './components/admin/Orders.jsx';
 import BestSellerShop from './components/BestSeller.jsx';
 import NewArrivalsShop from './components/NewArivals.jsx';
+import SpecialRequestForm from './components/SpecialRequest.jsx';
+import AdminDashboard from './pages/AdminDashboard.jsx';
 ///////////////////////
 
 const router = createBrowserRouter([
@@ -95,15 +97,25 @@ const router = createBrowserRouter([
       },
     ],
   },
-  { path: '/admin/orders',
+  { path: '/admin/dashboard',
     element: <App />,
     children: [
       {
-        path: '/admin/orders',
-        element: <Orders />,
+        path: '/admin/dashboard',
+        element: <AdminDashboard />,
       },
     ],
 
+  },
+  {
+  path: '/special-request',
+  element: <App />,
+  children: [
+    {
+      path: '/special-request',
+      element: <SpecialRequestForm />,
+    },
+  ],
   },
   {
     path: '/product/:productId',

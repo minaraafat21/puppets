@@ -1,6 +1,7 @@
 import express from 'express';
 import records from './routes/record.js'; 
 import orders from './routes/orders.js'; 
+import specialRequest from './routes/specialRequest.js';
 import cors from 'cors';
 import { fileURLToPath } from 'url';
 import path from 'path';
@@ -20,6 +21,7 @@ app.use(express.json());
 
 app.use('/record', records);
 app.use('/orders', orders);
+app.use('/specialRequests', specialRequest);
 
 
 app.use('/assets', express.static(path.join(__dirname, '../assets')));

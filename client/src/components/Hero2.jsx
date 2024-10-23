@@ -38,14 +38,19 @@ export default function Hero2() {
         <div className="mx-auto max-w-2xl  lg:max-w-none :py-32">
           <div className="mt-0 space-y-12 lg:grid lg:grid-cols-2 lg:gap-x-6 lg:space-y-0">
             {/* Left Side (callouts1) */}
-            <div className="space-y-12 lg:space-y-0">
+            <div className="space-y-4 lg:space-y-0">
               {callouts1.map((callout) => (
-                <div key={callout.name} className="group relative"  onClick={() => {window.location.href = (callout.href)}}>
+                <div
+                  key={callout.name}
+                  className="group relative"
+                  onClick={() => {
+                    window.location.href = callout.href;
+                  }}
+                >
                   <div className="relative h-100 sm:h-128 w-full overflow-hidden rounded-lg bg-white group-hover:opacity-75">
                     <img
                       alt={callout.imageAlt}
                       src={callout.imageSrc}
-                     
                       className="h-full w-full object-cover object-center"
                     />
                     {/* Text Overlay */}
@@ -54,9 +59,6 @@ export default function Hero2() {
                         <h3 className="text-lg sm:text-xl font-semibold text-white">
                           {callout.name}
                         </h3>
-                        <p className="text-sm sm:text-base text-white">
-                          {callout.description}
-                        </p>
                       </div>
                     </div>
                   </div>
@@ -68,7 +70,12 @@ export default function Hero2() {
             <div className="space-y-6 lg:space-y-0 lg:grid lg:grid-cols-1 lg:gap-6">
               {callouts2.map((callout) => (
                 <div key={callout.name} className="group relative">
-                  <div className="relative h-96 sm:h-128 w-full overflow-hidden rounded-lg bg-white group-hover:opacity-75"  onClick={() => {window.location.href = (callout.href)}}>
+                  <div
+                    className="relative h-96 sm:h-128 w-full overflow-hidden rounded-lg bg-white group-hover:opacity-75"
+                    onClick={() => {
+                      window.location.href = callout.href;
+                    }}
+                  >
                     <img
                       alt={callout.imageAlt}
                       src={callout.imageSrc}
@@ -80,9 +87,6 @@ export default function Hero2() {
                         <h3 className="text-lg sm:text-xl font-semibold text-white">
                           {callout.name}
                         </h3>
-                        <p className="text-sm sm:text-base text-white">
-                          {callout.description}
-                        </p>
                       </div>
                     </div>
                   </div>

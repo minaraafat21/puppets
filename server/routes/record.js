@@ -9,7 +9,6 @@ const router = express.Router();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Set up storage for multer to save files in the assets folder
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, path.join(__dirname, '../../client/public/assets/')); // Save to the assets folder
@@ -72,36 +71,35 @@ router.post('/', upload.single('imageSrc'), async (req, res) => {
 
     const imageName = req.file.filename; // Get the saved file name
 
-    // Generate a new numeric ID (you may want to customize this logic)
+    // Generate a new numeric ID
     const existingRecords = await db.collection('products').find({}).toArray();
-    const newId = existingRecords.length + 1; // Basic logic to generate a new numeric ID
+    const newId = existingRecords.length + 1;
 
     const newRecord = {
-      id: newId, // Assign the generated numeric ID
+      id: newId,
       name,
       price,
-      href: `product/:${newId}`, // Set href using the new numeric ID
+      href: `product/:${newId}`,
       description,
       category,
-      bestseller: bestseller === 'true', // Convert to boolean
-      colors: colors ? JSON.parse(colors) : [], // Parse only if defined
-      highlights: highlights ? JSON.parse(highlights) : [], // Parse only if defined
+      bestseller: bestseller === 'true',
+      colors: colors ? JSON.parse(colors) : [],
+      highlights: highlights ? JSON.parse(highlights) : [],
       details,
-      images: images ? JSON.parse(images) : [], // Parse only if defined
-      breadcrumbs: breadcrumbs ? JSON.parse(breadcrumbs) : [], // Parse only if defined
-      imageSrc: imageName, // Store only the image name
+      images: images ? JSON.parse(images) : [],
+      breadcrumbs: breadcrumbs ? JSON.parse(breadcrumbs) : [],
+      imageSrc: imageName,
     };
 
     const result = await db.collection('products').insertOne(newRecord);
-    console.log('Insert result:', result); // Log the result
+    console.log('Insert result:', result);
 
     if (result.acknowledged) {
-      // Use the insertedId to construct href
       const insertedRecord = {
         ...newRecord,
-        href: `product/:${newRecord.id}`, // Set href using the new numeric ID
+        href: `product/:${newRecord.id}`,
       };
-      res.json(insertedRecord); // Return the newly created record with href
+      res.json(insertedRecord);
     } else {
       res.status(500).send('Error inserting record');
     }
@@ -132,18 +130,18 @@ router.patch('/:id', upload.single('imageSrc'), async (req, res) => {
       name,
       price,
       description,
-      href, // Include href in update data
+      href,
       category,
-      bestseller: bestseller === 'true', // Convert to boolean
-      colors: colors ? JSON.parse(colors) : [], // Parse only if defined
-      highlights: highlights ? JSON.parse(highlights) : [], // Parse only if defined
+      bestseller: bestseller === 'true',
+      colors: colors ? JSON.parse(colors) : [],
+      highlights: highlights ? JSON.parse(highlights) : [],
       details,
-      images: images ? JSON.parse(images) : [], // Parse only if defined
-      breadcrumbs: breadcrumbs ? JSON.parse(breadcrumbs) : [], // Parse only if defined
+      images: images ? JSON.parse(images) : [],
+      breadcrumbs: breadcrumbs ? JSON.parse(breadcrumbs) : [],
     };
 
     if (req.file) {
-      updateData.imageSrc = req.file.filename; // Update with new image name if a new file is uploaded
+      updateData.imageSrc = req.file.filename;
     }
 
     const result = await db
@@ -154,7 +152,6 @@ router.patch('/:id', upload.single('imageSrc'), async (req, res) => {
       return res.status(404).send('Record not found');
     }
 
-    // Include href in the response
     const updatedRecord = { ...updateData, id: Number(id), href }; // Combine updateData with id and href
     res.json(updatedRecord);
   } catch (err) {

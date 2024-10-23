@@ -20,6 +20,8 @@ import Product from './pages/Product.jsx';
 import AdminLogin from './components/AdminLogin.jsx';
 import CheckoutPage from './pages/Checkout.jsx';
 import Orders from './components/admin/Orders.jsx';
+import BestSellerShop from './components/BestSeller.jsx';
+import NewArrivalsShop from './components/NewArivals.jsx';
 ///////////////////////
 
 const router = createBrowserRouter([
@@ -61,6 +63,14 @@ const router = createBrowserRouter([
         path: '/shop',
         element: <RecordList />,
       },
+      {
+        path: '/shop/bestsellers',
+        element: <BestSellerShop />,
+      },
+      {
+        path: '/shop/new-arrivals',
+        element: <NewArrivalsShop />,
+      },     
     ],
   },
   {

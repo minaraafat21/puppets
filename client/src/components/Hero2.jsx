@@ -1,3 +1,4 @@
+import { Navigate } from 'react-router-dom';
 import { assets } from '../../public/assets/assets';
 
 const callouts1 = [
@@ -7,7 +8,7 @@ const callouts1 = [
     imageSrc: assets.gangstar2,
     imageAlt:
       'Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug.',
-    href: '#',
+    href: '/shop/bestsellers',
   },
 ];
 
@@ -18,7 +19,7 @@ const callouts2 = [
     imageSrc: assets.spider1,
     imageAlt:
       'Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug.',
-    href: '#',
+    href: '/shop/new-arrivals',
   },
   {
     name: 'Gifts',
@@ -39,11 +40,12 @@ export default function Hero2() {
             {/* Left Side (callouts1) */}
             <div className="space-y-12 lg:space-y-0">
               {callouts1.map((callout) => (
-                <div key={callout.name} className="group relative">
+                <div key={callout.name} className="group relative"  onClick={() => {window.location.href = (callout.href)}}>
                   <div className="relative h-100 sm:h-128 w-full overflow-hidden rounded-lg bg-white group-hover:opacity-75">
                     <img
                       alt={callout.imageAlt}
                       src={callout.imageSrc}
+                     
                       className="h-full w-full object-cover object-center"
                     />
                     {/* Text Overlay */}
@@ -66,7 +68,7 @@ export default function Hero2() {
             <div className="space-y-6 lg:space-y-0 lg:grid lg:grid-cols-1 lg:gap-6">
               {callouts2.map((callout) => (
                 <div key={callout.name} className="group relative">
-                  <div className="relative h-96 sm:h-128 w-full overflow-hidden rounded-lg bg-white group-hover:opacity-75">
+                  <div className="relative h-96 sm:h-128 w-full overflow-hidden rounded-lg bg-white group-hover:opacity-75"  onClick={() => {window.location.href = (callout.href)}}>
                     <img
                       alt={callout.imageAlt}
                       src={callout.imageSrc}

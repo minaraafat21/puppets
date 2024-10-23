@@ -1,46 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useRecords } from '../context/ProductsContext';
-
-const Record = (props) => (
-  <tr className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
-    <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
-      {props.record.href}
-    </td>
-    <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
-      {props.record.details}
-    </td>
-    <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
-      {props.record.description}
-    </td>
-    <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
-      <div className="flex gap-2">
-        <Link
-          className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 h-9 rounded-md px-3"
-          to={`/edit/${props.record._id}`}
-        >
-          Edit
-        </Link>
-        <button
-          className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 hover:text-accent-foreground h-9 rounded-md px-3"
-          color="red"
-          type="button"
-          onClick={() => {
-            props.deleteRecord(props.record._id);
-          }}
-        >
-          Delete
-        </button>
-      </div>
-    </td>
-  </tr>
-);
 
 export default function RecordList() {
   const contextRecords = useRecords(); 
   const [records, setRecords] = useState([]);
 
-  // If using context, make sure to set records from context if available
+  
   useEffect(() => {
     if (Array.isArray(contextRecords)) {
       setRecords(contextRecords);
@@ -48,25 +13,14 @@ export default function RecordList() {
   }, [contextRecords]);
 
   if (records.length === 0) {
-    return <div>No records found.</div>;
+    return <div>No Products found.</div>;
   }
 
-  // This method will map out the records on the table
-  function recordList() {
-    return records.map((record) => {
-      return (
-        <Record
-          record={record}
-          deleteRecord={() => deleteRecord(record._id)}
-          key={record._id}
-        />
-      );
-    });
-  }
+  
 
   // This following section will display the table with the records of individuals.
   return (
-    <div className="bg-white">
+    <div className="bg-blue-100">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
         <h2 className="sr-only">records</h2>
 

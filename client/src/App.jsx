@@ -13,11 +13,11 @@ const App = () => {
   return (
     <CartProvider>
       <ProductProvider>
-        <div>
+        <div className='bg-blue-100'>
           <Navbar />
           <Cart />
           <Outlet />
-          {/* <Footer1 /> */}
+          <Footer1 />
         </div>
       </ProductProvider>
     </CartProvider>

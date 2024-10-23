@@ -151,7 +151,7 @@ export default function SpecialRequestForm() {
             <input
               type="submit"
               value="Send Request"
-              className="inline-flex items-center justify-center whitespace-nowrap text-md font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 rounded-md h-10 px-4 transition duration-200"
+              className="inline-flex items-center justify-center whitespace-nowrap text-md font-medium text-white bg-custom-green hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 rounded-md h-10 px-4 transition duration-200"
             />
           </div>
           {submitSuccess && (

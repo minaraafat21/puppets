@@ -29,6 +29,8 @@ import dog4 from './dog4.jpg';
 import dog5 from './dog5.jpg';
 import dog6 from './dog6.jpg';
 
+import cairoTheater from './cairoTheater.jpg';
+
 import flower from './flower.jpg';
 import flowers from './flowers.jpg';
 
@@ -81,6 +83,7 @@ export const assets = {
   bear,
   blueGirl,
   blueGirl1,
+  cairoTheater,
   blueGirl2,
   blueGirl3,
   blueGirl4,

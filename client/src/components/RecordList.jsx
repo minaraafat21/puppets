@@ -2,10 +2,9 @@ import { useEffect, useState } from 'react';
 import { useRecords } from '../context/ProductsContext';
 
 export default function RecordList() {
-  const contextRecords = useRecords(); 
+  const contextRecords = useRecords();
   const [records, setRecords] = useState([]);
 
-  
   useEffect(() => {
     if (Array.isArray(contextRecords)) {
       setRecords(contextRecords);
@@ -16,9 +15,6 @@ export default function RecordList() {
     return <div>No Products found.</div>;
   }
 
-  
-
-  // This following section will display the table with the records of individuals.
   return (
     <div className="bg-blue-100">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
@@ -36,7 +32,7 @@ export default function RecordList() {
               </div>
               <h3 className="mt-4 text-sm text-gray-700">{record.name}</h3>
               <p className="mt-1 text-lg font-medium text-gray-900">
-                {record.price}
+                {'EGP' + record.price}
               </p>
             </a>
           ))}

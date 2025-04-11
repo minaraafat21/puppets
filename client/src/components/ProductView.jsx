@@ -31,9 +31,7 @@ export default function ProductView({ id }) {
 
   // console.log('Product view products:', products);
 
-  // Check if the product exists before using it
   const product = products.find((product) => product.id === idNumber);
-  // console.log('Product img:', product.images);
 
   function addToCart(event, product) {
     event.preventDefault(); // Prevent form submission
@@ -124,7 +122,7 @@ export default function ProductView({ id }) {
             <div className="mt-4 lg:row-span-3 lg:mt-0">
               <h2 className="sr-only">Product information</h2>
               <p className="text-3xl tracking-tight text-gray-900">
-                {product.price + " EGP"}
+                {product.price + ' EGP'}
               </p>
 
               {/* Reviews */}

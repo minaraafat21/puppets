@@ -32,10 +32,10 @@ export function Footer1() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <FaWhatsapp className="text-white hover:text-blue-700" />
+            <FaWhatsapp className="text-white hover:text-green-700" />
           </a>
         </div>
-        <Link to="/admin/login" className="text-white hover:text-gray-400">
+        <Link to="/admin/login" className="text-white hover:text-blue-400">
           Admin Login
         </Link>
       </div>
